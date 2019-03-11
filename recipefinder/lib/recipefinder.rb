@@ -1,6 +1,2 @@
-require "recipefinder/version"
-
-module Recipefinder
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "recipefinder/version"
+require_relative "recipefinder/cli"
