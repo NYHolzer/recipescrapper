@@ -10,3 +10,5 @@ binding.pry
 
 #:title = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[1].text
 #:description = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__description").text
+#:link =  doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[0].attributes **CLOSE** DO NOT KNOW HOW TO GET TO THE HREF
+#:chef = doc.css("article.fixed-recipe-card")[0].css(".cook-submitter-info h4").text.delete("By").lstrip
