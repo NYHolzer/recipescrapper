@@ -9,3 +9,4 @@ doc = Nokogiri::HTML(open(site))
 binding.pry
 
 #:title = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[1].text
+#:description = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__description").text
