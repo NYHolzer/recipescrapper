@@ -1,3 +1,3 @@
 class Recipe
-  attr_accessor :name, :description, :ingredients, :instructions, :chef, :link
+  attr_accessor :name, :description, :ingredients, :directions, :chef, :link
 end
