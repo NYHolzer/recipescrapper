@@ -39,7 +39,6 @@ class Scrapper
       end
       counter -= 1
     end
-    binding.pry
   end
 
 end
