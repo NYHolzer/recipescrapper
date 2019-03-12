@@ -27,7 +27,18 @@ class Scrapper
   end
 
   def make_recipes
-    self.get_recipes.count
+    counter = self.get_recipes.count - 1
+    while counter != 0
+      self.get_recipes.each do |recipe|
+        r = Recipe.new
+        r.title = recipe.css(".fixed-recipe-card__title-link")[1].text
+        r.description = recipe.css(".fixed-recipe-card__description").text
+        chefname = recipe.css(".cook-submitter-info h4").text.delete("By").lstrip
+        r.chef = chefname
+        r.link = recipe.css("a")[0].values[0]
+      end
+      counter -= 1
+    end
     binding.pry
   end
 
