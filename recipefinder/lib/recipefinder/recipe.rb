@@ -6,6 +6,8 @@ class Recipe
   @@all = []
 
   def initialize
+    @ingredients = []
+    @directions = []
     @@all << self
   end
 
