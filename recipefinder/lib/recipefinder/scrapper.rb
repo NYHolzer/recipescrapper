@@ -39,9 +39,24 @@ class Scrapper
     end
   end
 
+  def get_ing_dir
+    Recipe.all.each do |r|
+      binding.pry
+      site = r.link
+      recipesite = Nokogiri::HTML(open(site))
+      recipesite.css("span.recipe-ingred_txt.added").each do |i|
+        if i != "Add all ingredients to list"
+          r.ingredients << i.text
+        end
+      end
+    end
+  end
+
 end
 
-Scrapper.new.make_recipes
+scrap = Scrapper.new
+scrap.make_recipes
+scrap.get_ing_dir
 #:title = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[1].text
 #:description = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__description").text
 #:link =  doc.css("article.fixed-recipe-card")[0].css("a")[0].values[0]
