@@ -27,8 +27,7 @@ class Scrapper
   end
 
   def make_recipes
-    counter = self.get_recipes.count - 1
-    while counter != 0
+    10.times do
       self.get_recipes.each do |recipe|
         r = Recipe.new
         r.title = recipe.css(".fixed-recipe-card__title-link")[1].text
@@ -37,7 +36,6 @@ class Scrapper
         r.chef = chefname
         r.link = recipe.css("a")[0].values[0]
       end
-      counter -= 1
     end
   end
 
