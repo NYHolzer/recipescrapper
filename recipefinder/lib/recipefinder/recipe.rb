@@ -1,6 +1,7 @@
 class Recipe
   #all will get from the scrapper
-  attr_accessor :name, :description, :ingredients, :directions, :chef, :link
+  attr_accessor :title, :description, :ingredients, :directions, :link
+  attr_reader :chef
 
   @@all = []
 
@@ -10,5 +11,9 @@ class Recipe
 
   def chef=(chef)
     @chef = Chef.new(chef)
+  end
+
+  def self.all
+    @@all
   end
 end
