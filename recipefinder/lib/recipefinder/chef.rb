@@ -1,5 +1,10 @@
 class Chef
-  attr_accessor :name, :recipes
+  attr_accessor :recipes
+  attr_reader :name
+
+  def initialize(name)
+    @name = name
+  end
 
   def recipes
     @recipes = []
