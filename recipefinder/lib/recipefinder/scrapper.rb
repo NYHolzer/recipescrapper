@@ -41,7 +41,6 @@ class Scrapper
 
   def get_ing_dir
     Recipe.all.each do |r|
-      binding.pry
       site = r.link
       recipesite = Nokogiri::HTML(open(site))
       recipesite.css("span.recipe-ingred_txt.added").each do |i|
@@ -49,6 +48,10 @@ class Scrapper
           r.ingredients << i.text
         end
       end
+      recipesite.css("span.recipe-directions__list--item").each do |d|
+        r.directions << d.text.lstrip.rstrip
+      end
+      binding.pry
     end
   end
 
