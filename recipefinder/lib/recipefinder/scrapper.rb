@@ -51,7 +51,6 @@ class Scrapper
       recipesite.css("span.recipe-directions__list--item").each do |d|
         r.directions << d.text.lstrip.rstrip
       end
-      binding.pry
     end
   end
 
@@ -60,6 +59,7 @@ end
 scrap = Scrapper.new
 scrap.make_recipes
 scrap.get_ing_dir
+
 #:title = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[1].text
 #:description = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__description").text
 #:link =  doc.css("article.fixed-recipe-card")[0].css("a")[0].values[0]
