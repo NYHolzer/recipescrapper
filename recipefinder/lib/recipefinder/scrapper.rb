@@ -6,20 +6,21 @@ require_relative './chef.rb'
 require_relative './recipe.rb'
 require_relative './course.rb'
 
-site = "https://www.allrecipes.com/recipes/79/desserts/?page=1"
-site2 = "https://www.allrecipes.com/recipe/10702/jam-thumbprints/"
-
-doc = Nokogiri::HTML(open(site))
-doc2 = Nokogiri::HTML(open(site2))
+# site = "https://www.allrecipes.com/recipes/79/desserts/?page=1"
+# site2 = "https://www.allrecipes.com/recipe/10702/jam-thumbprints/"
+#
+# doc = Nokogiri::HTML(open(site))
+# doc2 = Nokogiri::HTML(open(site2))
 
 class Scrapper
 
   def site   #Leaving option open to change site based on user input
-    @site = "https://www.allrecipes.com/recipes/79/desserts/"
+    @site = "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"
   end
 
   def get_page
-    Nokogiri::HTML(open(self.site))
+    doc = Nokogiri::HTML(open(self.site))
+    binding.pry
   end
 
   def get_recipes
@@ -57,15 +58,18 @@ class Scrapper
 end
 
 scrap = Scrapper.new
-scrap.make_recipes
-scrap.get_ing_dir
+scrap.get_page
 
+#kosher.com
+#:link = doc.css("div.item-recipe__holder")[0].css("a")[0].attributes.values[0].value
+
+
+
+#ALLRECIPES.com
 #:title = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[1].text
 #:description = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__description").text
 #:link =  doc.css("article.fixed-recipe-card")[0].css("a")[0].values[0]
 #:chef = doc.css("article.fixed-recipe-card")[0].css(".cook-submitter-info h4").text.delete("By").lstrip
-
-
 
 #------
 #2nd site within each recipe lookup:
