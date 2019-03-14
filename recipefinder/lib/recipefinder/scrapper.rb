@@ -14,6 +14,12 @@ require_relative './course.rb'
 
 class Scrapper
 
+  def websites
+    {:appetizers => "E:/Nissan & Daniella/Documents/kosherdotcomappetizers.html"
+     :main_dishes => "E:/Nissan & Daniella/Documents/kosherdotcommain.html"
+     :desserts => "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"}
+  end
+
   def site   #Leaving option open to change site based on user input
     @site = "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"
   end
