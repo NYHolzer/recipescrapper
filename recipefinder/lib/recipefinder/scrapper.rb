@@ -73,7 +73,7 @@ scrap.get_page
 #2nd site
 #:ingredients = doc.css("span.form-checkbox__title")[0].text
 
-
+#:directions doc.css("//div[@itemprop = 'recipeInstructions']").each {|i| puts i.text} -- close
 
 #ALLRECIPES.com
 #:title = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[1].text
