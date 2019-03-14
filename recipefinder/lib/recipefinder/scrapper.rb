@@ -14,18 +14,22 @@ require_relative './course.rb'
 
 class Scrapper
 
+  attr_accessor :site
+
   def websites
-    {:appetizers => "E:/Nissan & Daniella/Documents/kosherdotcomappetizers.html"
-     :main_dishes => "E:/Nissan & Daniella/Documents/kosherdotcommain.html"
+    @websites = {:appetizers => "E:/Nissan & Daniella/Documents/kosherdotcomappetizers.html",
+     :main_dishes => "E:/Nissan & Daniella/Documents/kosherdotcommain.html",
      :desserts => "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"}
   end
 
-  def site   #Leaving option open to change site based on user input
-    @site = "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"
+
+  def site
+    @site
   end
 
+
   def get_page
-    doc = Nokogiri::HTML(open(self.site))
+    doc = Nokogiri::HTML(open(self.site)
     binding.pry
   end
 
@@ -64,6 +68,8 @@ class Scrapper
 end
 
 scrap = Scrapper.new
+d = scrap.websites[:appetizers]
+scrap.site(d)
 scrap.get_page
 
 #kosher.com
