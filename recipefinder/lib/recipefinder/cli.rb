@@ -6,6 +6,8 @@ require 'pry'
 
 class Recipefinder::CLI
 
+  attr_accessor :num_of_choices
+
   def call
     instructions
     until (user_input = gets.strip) == "exit"
@@ -31,7 +33,7 @@ class Recipefinder::CLI
     when "3"
       puts "top 10 desserts recipes"
     else
-      puts "Error: that is not a valid entry"
+      puts "Error: that is not a valid entry. Please enter a number or 'exit' to close"
     end
   end
 
@@ -41,9 +43,9 @@ class Recipefinder::CLI
     counter = 1
     Recipe.all.each do |recipe|
       puts "#{counter}." + " #{r.title}"
-      puts "#{r.description}"
       counter += 1
     end
+    @num_of_choices = Recipe.all.count
   end
 
   def lunch_recipes
@@ -56,5 +58,14 @@ class Recipefinder::CLI
 
   def choose_recipe
     puts "Choose the number of the recipe you'd like to cook:"
+    if user_input <= self.num_of_choices && user_input > 0
+      recipe_find
+    else
+      puts "Error: Please enter a number between 1 and #{num_of_choices}."
+      puts "If your ready to start cookin' and want to exit, type 'exit'."
+  end
+
+  def recipe_find
+
   end
 end

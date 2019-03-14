@@ -22,14 +22,8 @@ class Scrapper
      :desserts => "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"}
   end
 
-
-  def site
-    @site
-  end
-
-
   def get_page
-    doc = Nokogiri::HTML(open(self.site)
+    doc = Nokogiri::HTML(open(self.site))
     binding.pry
   end
 
@@ -68,11 +62,11 @@ class Scrapper
 end
 
 scrap = Scrapper.new
-d = scrap.websites[:appetizers]
-scrap.site(d)
+scrap.site = scrap.websites[:appetizers]
 scrap.get_page
 
 #kosher.com
+#:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].attributes.values[0].value
 #:link = doc.css("div.item-recipe__holder")[0].css("a")[0].attributes.values[0].value
 
 
