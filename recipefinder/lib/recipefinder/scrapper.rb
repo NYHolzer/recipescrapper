@@ -66,9 +66,9 @@ scrap.site = scrap.websites[:appetizers]
 scrap.get_page
 
 #kosher.com
-#:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].attributes.values[0].value
+#:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].text
 #:link = doc.css("div.item-recipe__holder")[0].css("a")[0].attributes.values[0].value
-#:chef = 
+#:chef = doc.css("div.item-recipe__meta")[0].css("a")[0].text
 
 
 #ALLRECIPES.com
