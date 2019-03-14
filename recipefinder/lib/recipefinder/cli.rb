@@ -4,26 +4,27 @@ class Recipefinder::CLI
 
   def call
     instructions
-    input_instructions
+    until (user_input = gets.strip) == "exit"
+      input_instructions(user_input)
+    end
   end
 
   def instructions
     puts "Welcome to the Recipe Finder"
-    puts "What course would you like a Recipe for?"
-    puts "1. Breakfast"
-    puts "2. Lunch"
-    puts "3. Dinner"
+    puts "What would you like a Recipe for?"
+    puts "1. Appetizers"
+    puts "2. Main Dishes"
+    puts "3. Desserts"
     puts "Enter '1', '2', '3' to choose a course. Or type 'exit' to close the program"
   end
 
-  def input_instructions
-    input = gets.strip
-    case input
-    when input == "1"
+  def input_instructions(user_input)
+    case user_input
+    when "1"
       puts "top 10 breakfast recipes"
-    when input == "2"
+    when "2"
       puts "top 10 lunch recipes"
-    when input == "3"
+    when "3"
       puts "top 10 dinner recipes"
     else
       puts "Error: that is not a valid entry"
