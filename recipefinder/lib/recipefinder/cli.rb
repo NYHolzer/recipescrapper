@@ -43,6 +43,7 @@ class Recipefinder::CLI
     counter = 1
     Recipe.all.each do |recipe|
       puts "#{counter}." + " #{r.title}"
+      puts "By #{r.chef}"
       counter += 1
     end
     @num_of_choices = Recipe.all.count
@@ -56,16 +57,17 @@ class Recipefinder::CLI
 
   end
 
-  def choose_recipe
+  def choose_recipe(user_input)
     puts "Choose the number of the recipe you'd like to cook:"
     if user_input <= self.num_of_choices && user_input > 0
       recipe_find
     else
-      puts "Error: Please enter a number between 1 and #{num_of_choices}."
+      puts "Error: Please enter a number between 1 and #{self.num_of_choices}."
       puts "If your ready to start cookin' and want to exit, type 'exit'."
+    end
   end
 
-  def recipe_find
-
+  def recipe_find(user_input)
+    r = Recipe.all[user_input.to_i]
   end
 end

@@ -68,7 +68,7 @@ scrap.get_page
 #kosher.com
 #:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].attributes.values[0].value
 #:link = doc.css("div.item-recipe__holder")[0].css("a")[0].attributes.values[0].value
-
+#:chef = 
 
 
 #ALLRECIPES.com
