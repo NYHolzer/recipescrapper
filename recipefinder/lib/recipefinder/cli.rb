@@ -12,7 +12,6 @@ class Recipefinder::CLI
     instructions
     until (user_input = gets.strip) == "exit"
       input_instructions(user_input)
-      choose_recipe(user_input)
     end
   end
 
@@ -29,18 +28,22 @@ class Recipefinder::CLI
     case user_input
     when "1"
       appetizer_recipes
+      choose_recipe(user_input)
     when "2"
-      puts "top 10 main dishes recipes"
+      main_recipes
+      choose_recipe(user_input)
     when "3"
-      puts "top 10 desserts recipes"
+      desserts_recipes
+      choose_recipe(user_input)
     else
       puts "Error: that is not a valid entry. Please enter a number or 'exit' to close"
     end
   end
 
   def appetizer_recipes
-    appetizer_scrap = Scrapper.new
-    appetizer_scrap.site = websites[appetizers]
+    a_scrap = Scrapper.new
+    a_site = a_scrap.websites[appetizers]
+    a_scrap.site = a_site
     counter = 1
     Recipe.all.each do |recipe|
       puts "#{counter}." + " #{r.title}"
@@ -77,8 +80,9 @@ class Recipefinder::CLI
   def choose_recipe(user_input)
     puts "Choose the number of the recipe you'd like to cook:"
     user_input = gets.strip
-    if user_input <= self.num_of_choices && user_input > 0
-      recipe_find(user_input)
+    if user_input <= self.num_of_choices.to_i && user_input > 0
+      puts "hello"
+      # recipe_find(user_input)
     else
       puts "Error: Please enter a number between 1 and #{self.num_of_choices}."
       puts "If your ready to start cookin' and want to exit, type 'exit'."

@@ -14,9 +14,9 @@ require_relative './course.rb'
 
 class Scrapper
 
-  attr_accessor :site
+  attr_accessor :site, :websites
 
-  def websites
+  def initialize
     @websites = {:appetizers => "E:/Nissan & Daniella/Documents/kosherdotcomappetizers.html",
      :main_dishes => "E:/Nissan & Daniella/Documents/kosherdotcommain.html",
      :desserts => "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"}
@@ -53,7 +53,6 @@ class Scrapper
           r.directions << d.text
         end
       end
-      binding.pry
     end
   end
 
@@ -61,12 +60,12 @@ end
 
 
 
-scrap = Scrapper.new
-scrap.site = "E:/Nissan & Daniella/Documents/kosherdotcommain.html"
-scrap.get_page
-scrap.get_recipes
-scrap.make_recipes
-scrap.get_ing_dir
+# scrap = Scrapper.new
+# scrap.site = "E:/Nissan & Daniella/Documents/kosherdotcommain.html"
+# scrap.get_page
+# scrap.get_recipes
+# scrap.make_recipes
+# scrap.get_ing_dir
 
 #kosher.com
 #:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].text
