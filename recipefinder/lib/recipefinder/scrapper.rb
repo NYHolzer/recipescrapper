@@ -24,7 +24,6 @@ class Scrapper
 
   def get_page
     doc = Nokogiri::HTML(open(self.site))
-    Course.new = site.split(/[\/]/)
   end
 
   def get_recipes
@@ -32,9 +31,12 @@ class Scrapper
   end
 
   def make_recipes
+    course = Course.new(site.split(/[\/]/)[3])
     recipes = self.get_recipes.first(8)
       recipes.each do |recipe|
         r = Recipe.new
+        course.recipes << r
+        binding.pry
         r.title = recipe.css("h4.item-recipe__title")[0].text
         r.link = recipe.css("a")[0].attributes.values[0].value
       end
@@ -47,8 +49,8 @@ class Scrapper
         recipesite.css("span.form-checkbox__title").each do |i|
           r.ingredients << i.text
         end
-      recipesite.css("//div[@itemprop = 'recipeInstructions']").each do |d|
-        if r.directions.find? {|r| r == d.text} == nil
+        recipesite.css("//div[@itemprop = 'recipeInstructions']").each do |d|
+        if r.directions.find {|r| r == d.text} == nil
           r.directions << d.text
         end
       end
@@ -64,6 +66,7 @@ scrap.site = "E:/Nissan & Daniella/Documents/kosherdotcommain.html"
 scrap.get_page
 scrap.get_recipes
 scrap.make_recipes
+scrap.get_ing_dir
 
 #kosher.com
 #:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].text
