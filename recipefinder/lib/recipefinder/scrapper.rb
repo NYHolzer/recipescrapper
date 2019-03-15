@@ -35,8 +35,7 @@ class Scrapper
     recipes = self.get_recipes.first(8)
       recipes.each do |recipe|
         r = Recipe.new
-        course.recipes << r
-        binding.pry
+        r.course = course
         r.title = recipe.css("h4.item-recipe__title")[0].text
         r.link = recipe.css("a")[0].attributes.values[0].value
       end
@@ -54,6 +53,7 @@ class Scrapper
           r.directions << d.text
         end
       end
+      binding.pry
     end
   end
 
