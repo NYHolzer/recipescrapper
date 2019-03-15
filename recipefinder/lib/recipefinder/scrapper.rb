@@ -24,46 +24,46 @@ class Scrapper
 
   def get_page
     doc = Nokogiri::HTML(open(self.site))
-    binding.pry
+    Course.new = site.split(/[\/]/)
   end
 
   def get_recipes
-    self.get_page.css("article.fixed-recipe-card")
+    self.get_page.css("div.item-recipe__holder")
   end
 
   def make_recipes
-    10.times do
-      self.get_recipes.each do |recipe|
+    recipes = self.get_recipes.first(8)
+      recipes.each do |recipe|
         r = Recipe.new
-        r.title = recipe.css(".fixed-recipe-card__title-link")[1].text
-        r.description = recipe.css(".fixed-recipe-card__description").text
-        chefname = recipe.css(".cook-submitter-info h4").text.delete("By").lstrip
-        r.chef = chefname
-        r.link = recipe.css("a")[0].values[0]
+        r.title = recipe.css("h4.item-recipe__title")[0].text
+        r.link = recipe.css("a")[0].attributes.values[0].value
       end
-    end
   end
 
   def get_ing_dir
     Recipe.all.each do |r|
       site = r.link
       recipesite = Nokogiri::HTML(open(site))
-      recipesite.css("span.recipe-ingred_txt.added").each do |i|
-        if i != "Add all ingredients to list"
+        recipesite.css("span.form-checkbox__title").each do |i|
           r.ingredients << i.text
         end
-      end
-      recipesite.css("span.recipe-directions__list--item").each do |d|
-        r.directions << d.text.lstrip.rstrip
+      recipesite.css("//div[@itemprop = 'recipeInstructions']").each do |d|
+        if r.directions.find? {|r| r == d.text} == nil
+          r.directions << d.text
+        end
       end
     end
   end
 
 end
 
+
+
 scrap = Scrapper.new
-scrap.site = "E:/Nissan & Daniella/Documents/kosherdotcomchicken.html"
+scrap.site = "E:/Nissan & Daniella/Documents/kosherdotcommain.html"
 scrap.get_page
+scrap.get_recipes
+scrap.make_recipes
 
 #kosher.com
 #:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].text
@@ -73,7 +73,7 @@ scrap.get_page
 #2nd site
 #:ingredients = doc.css("span.form-checkbox__title")[0].text
 
-#:directions doc.css("//div[@itemprop = 'recipeInstructions']").each {|i| puts i.text} -- close
+#:directions doc.css("//div[@itemprop = 'recipeInstructions']").-- close
 
 #ALLRECIPES.com
 #:title = doc.css("article.fixed-recipe-card")[0].css(".fixed-recipe-card__title-link")[1].text
