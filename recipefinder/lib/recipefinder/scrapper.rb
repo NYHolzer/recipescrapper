@@ -23,15 +23,15 @@ class Scrapper
   end
 
   def scrap
-    site = self.websites[:appetizers]
+    @site = self.websites[:appetizers]
     self.get_page
     self.get_recipes
     self.make_recipes
-    site = self.websites[:main_dishes]
+    @site = self.websites[:main_dishes]
     self.get_page
     self.get_recipes
     self.make_recipes
-    site = self.websites[:desserts]
+    @site = self.websites[:desserts]
     self.get_page
     self.get_recipes
     self.make_recipes
@@ -47,7 +47,7 @@ class Scrapper
   end
 
   def make_recipes
-    course = Course.new(site.split(/[\/]/)[3])
+    course = Course.new(site.split(/[\/]/)[4])
     recipes = self.get_recipes.first(8)
       recipes.each do |recipe|
         r = Recipe.new
