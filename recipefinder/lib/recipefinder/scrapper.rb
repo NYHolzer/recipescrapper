@@ -17,9 +17,13 @@ class Scrapper
   attr_accessor :site, :websites
 
   def initialize
-    @websites = {:appetizers => "E:/Nissan & Daniella/Documents/kosherdotcomappetizers.html",
-     :main_dishes => "E:/Nissan & Daniella/Documents/kosherdotcommain.html",
-     :desserts => "E:/Nissan & Daniella/Documents/kosherdotcomdesserts.html"}
+    @websites = {:appetizers => "C:/Users/Nissan/Documents/kosherdotcomappetizers.html",
+     :main_dishes => "C:/Users/Nissan/Documents/kosherdotcommain.html",
+     :desserts => "C:/Users/Nissan/Documents/kosherdotcomdesserts.html"}
+  end
+
+  def scrap
+
   end
 
   def get_page
