@@ -9,16 +9,21 @@ class Recipefinder::CLI
   attr_accessor :num_of_choices
 
   def call
+    welcome
     Scrapper.new.scrap
     instructions
     until (user_input = gets.strip) == "exit"
       input_instructions(user_input)
-      repeat
     end
+    repeat
+  end
+
+  def welcome
+    puts "Welcome to the Recipe Finder"
+    puts "Please give us a moment to gather some awesome recipes for you to choose from!"
   end
 
   def instructions
-    puts "Welcome to the Recipe Finder"
     puts "What would you like a Recipe for?"
     puts "1. Appetizers"
     puts "2. Main Dishes"
@@ -45,40 +50,41 @@ class Recipefinder::CLI
   def appetizer_recipes
     counter = 1
     Recipe.all.each do |recipe|
-      if recipe.course == Scrapper.new.websites[:appetizers].split(/[\/]/)[3]
+      if recipe.course.name == Scrapper.new.websites[:appetizers].split(/[\/]/)[4]
         puts "#{counter}." + " #{recipe.title}"
         counter += 1
       end
     end
-    @num_of_choices = Recipe.all.count
+    binding.pry
+    @num_of_choices = counter
   end
 
   def main_recipes
     counter = 1
     Recipe.all.each do |recipe|
-      if recipe.course == Scrapper.new.websites[:main_dishes].split(/[\/]/)[3]
+      if recipe.course.name == Scrapper.new.websites[:main_dishes].split(/[\/]/)[4]
         puts "#{counter}." + " #{recipe.title}"
         counter += 1
       end
     end
-    @num_of_choices = Recipe.all.count
+    @num_of_choices = counter
   end
 
   def desserts_recipes
     counter = 1
     Recipe.all.each do |recipe|
-      if recipe.course == Scrapper.new.websites[:desserts].split(/[\/]/)[3]
+      binding.pry
+      if recipe.course.name == Scrapper.new.websites[:desserts].split(/[\/]/)[4]
         puts "#{counter}." + " #{recipe.title}"
         counter += 1
       end
     end
-    @num_of_choices = Recipe.all.count
+    @num_of_choices = counter
   end
 
   def choose_recipe(user_input)
     puts "Choose the number of the recipe you'd like to cook:"
     user_input = gets.strip
-    binding.pry
     if user_input.to_i <= self.num_of_choices && user_input.to_i > 0
       recipe_find(user_input)
     else
