@@ -23,7 +23,19 @@ class Scrapper
   end
 
   def scrap
-
+    site = self.websites[:appetizers]
+    self.get_page
+    self.get_recipes
+    self.make_recipes
+    site = self.websites[:main_dishes]
+    self.get_page
+    self.get_recipes
+    self.make_recipes
+    site = self.websites[:desserts]
+    self.get_page
+    self.get_recipes
+    self.make_recipes
+    self.get_ing_dir
   end
 
   def get_page

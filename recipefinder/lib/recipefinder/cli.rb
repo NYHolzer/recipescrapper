@@ -9,6 +9,7 @@ class Recipefinder::CLI
   attr_accessor :num_of_choices
 
   def call
+    Scrapper.new.scrap
     instructions
     until (user_input = gets.strip) == "exit"
       input_instructions(user_input)
@@ -42,49 +43,34 @@ class Recipefinder::CLI
   end
 
   def appetizer_recipes
-    a_scrap = Scrapper.new
-    a_site = a_scrap.websites[:appetizers]
-    a_scrap.site = a_site
-    a_scrap.get_page
-    a_scrap.get_recipes
-    a_scrap.make_recipes
-    a_scrap.get_ing_dir
     counter = 1
     Recipe.all.each do |recipe|
-      puts "#{counter}." + " #{recipe.title}"
-      puts "By #{recipe.chef}"
-      counter += 1
+      if recipe.course == Scrapper.new.websites[:appetizers].split(/[\/]/)[3]
+        puts "#{counter}." + " #{recipe.title}"
+        counter += 1
+      end
     end
     @num_of_choices = Recipe.all.count
   end
 
   def main_recipes
-    main_scrap = Scrapper.new
-    main_scrap.site = websites[:main_dishes]
-    a_scrap.get_page
-    a_scrap.get_recipes
-    a_scrap.make_recipes
-    a_scrap.get_ing_dir
     counter = 1
     Recipe.all.each do |recipe|
-      puts "#{counter}." + " #{recipe.title}"
-      puts "By #{recipe.chef}"
-      counter += 1
+      if recipe.course == Scrapper.new.websites[:main_dishes].split(/[\/]/)[3]
+        puts "#{counter}." + " #{recipe.title}"
+        counter += 1
+      end
     end
     @num_of_choices = Recipe.all.count
   end
 
   def desserts_recipes
-    desserts_scrap = Scrapper.new
-    desserts_scrap.site = websites[:desserts]
-    a_scrap.get_page
-    a_scrap.get_recipes
-    a_scrap.make_recipes
-    a_scrap.get_ing_dir
     counter = 1
     Recipe.all.each do |recipe|
-      puts "#{counter}." + " #{recipe.title}"
-      counter += 1
+      if recipe.course == Scrapper.new.websites[:desserts].split(/[\/]/)[3]
+        puts "#{counter}." + " #{recipe.title}"
+        counter += 1
+      end
     end
     @num_of_choices = Recipe.all.count
   end
@@ -94,8 +80,7 @@ class Recipefinder::CLI
     user_input = gets.strip
     binding.pry
     if user_input.to_i <= self.num_of_choices && user_input.to_i > 0
-      puts "hello"
-      # recipe_find(user_input)
+      recipe_find(user_input)
     else
       puts "Error: Please enter a number between 1 and #{self.num_of_choices}."
       puts "If your ready to start cookin' and want to exit, type 'exit'."
