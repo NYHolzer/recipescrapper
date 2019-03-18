@@ -49,7 +49,7 @@ class Recipefinder::CLI
   def appetizer_recipes
     counter = 1
     Recipe.all.each do |recipe|
-      if recipe.course.name == Scrapper.new.websites[:appetizers].split(/[\/]/)[4]
+      if recipe.course.name == Scrapper.new.websites[:appetizers].split(/[\/]/)[5]
         puts "#{counter}." + " #{recipe.title}"
         puts ""
         counter += 1
@@ -61,7 +61,7 @@ class Recipefinder::CLI
   def main_recipes
     counter = 1
     Recipe.all.each do |recipe|
-      if recipe.course.name == Scrapper.new.websites[:main_dishes].split(/[\/]/)[4]
+      if recipe.course.name == Scrapper.new.websites[:main_dishes].split(/[\/]/)[5]
         puts "#{counter}." + " #{recipe.title}"
         puts ""
         counter += 1
@@ -73,7 +73,7 @@ class Recipefinder::CLI
   def dessert_recipes
     counter = 1
     Recipe.all.each do |recipe|
-      if recipe.course.name == Scrapper.new.websites[:desserts].split(/[\/]/)[4]
+      if recipe.course.name == Scrapper.new.websites[:desserts].split(/[\/]/)[5]
         puts "#{counter}." + " #{recipe.title}"
         puts ""
         counter += 1
@@ -102,6 +102,7 @@ class Recipefinder::CLI
     r.directions.each_with_index do |dir, index|
       puts "#{index+1}." + dir
     end
+    puts ""
     puts "Choose '1' for Appetizers, '2' for Main Dishes, '3' for desserts or 'exit' to close the program."
   end
 

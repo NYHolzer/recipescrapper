@@ -17,9 +17,9 @@ class Scrapper
   attr_accessor :site, :websites
 
   def initialize
-    @websites = {:appetizers => "https://www.allrecipes.com/recipes/appetizers-and-snacks/",
-     :main_dishes => "https://www.kosher.com/recipes/main-dishes",
-     :desserts => "https://www.kosher.com/recipes/desserts"}
+    @websites = {:appetizers => "https://www.allrecipes.com/recipes/76/appetizers-and-snacks/",
+     :main_dishes => "https://www.allrecipes.com/recipes/17562/dinner/",
+     :desserts => "https://www.allrecipes.com/recipes/79/desserts/"}
   end
 
   def scrap
@@ -51,7 +51,7 @@ class Scrapper
   end
 
   def make_recipes
-    course = Course.new(site.split(/[\/]/)[4])
+    course = Course.new(site.split(/[\/]/)[5])
     recipes = self.get_recipes.first(8)
       recipes.each do |recipe|
         r = Recipe.new
