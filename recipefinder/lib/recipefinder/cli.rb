@@ -51,6 +51,7 @@ class Recipefinder::CLI
     Recipe.all.each do |recipe|
       if recipe.course.name == Scrapper.new.websites[:appetizers].split(/[\/]/)[5]
         puts "#{counter}." + " #{recipe.title}"
+        puts "#{recipe.description}"
         puts ""
         counter += 1
       end
@@ -63,6 +64,7 @@ class Recipefinder::CLI
     Recipe.all.each do |recipe|
       if recipe.course.name == Scrapper.new.websites[:main_dishes].split(/[\/]/)[5]
         puts "#{counter}." + " #{recipe.title}"
+        puts "#{recipe.description}"
         puts ""
         counter += 1
       end
@@ -75,6 +77,7 @@ class Recipefinder::CLI
     Recipe.all.each do |recipe|
       if recipe.course.name == Scrapper.new.websites[:desserts].split(/[\/]/)[5]
         puts "#{counter}." + " #{recipe.title}"
+        puts "#{recipe.description}"
         puts ""
         counter += 1
       end

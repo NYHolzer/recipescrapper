@@ -28,13 +28,11 @@ class Scrapper
     self.get_recipes
     self.make_recipes
     self.get_ing_dir
-    sleep 5
     @site = self.websites[:main_dishes]
     self.get_page
     self.get_recipes
     self.make_recipes
     self.get_ing_dir
-    sleep 5
     @site = self.websites[:desserts]
     self.get_page
     self.get_recipes
@@ -57,6 +55,7 @@ class Scrapper
         r = Recipe.new
         r.course = course
         r.title = recipe.css(".fixed-recipe-card__title-link")[1].text
+        r.description = recipe.css(".fixed-recipe-card__description").text
         r.link = recipe.css("a")[0].attributes.values[0].value
       end
   end
