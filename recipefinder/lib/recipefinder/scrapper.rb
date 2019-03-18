@@ -17,9 +17,9 @@ class Scrapper
   attr_accessor :site, :websites
 
   def initialize
-    @websites = {:appetizers => "C:/Users/Nissan/Documents/kosherdotcomappetizers.html",
-     :main_dishes => "C:/Users/Nissan/Documents/kosherdotcommain.html",
-     :desserts => "C:/Users/Nissan/Documents/kosherdotcomdesserts.html"}
+    @websites = {:appetizers => "https://www.allrecipes.com/recipes/appetizers-and-snacks/",
+     :main_dishes => "https://www.kosher.com/recipes/main-dishes",
+     :desserts => "https://www.kosher.com/recipes/desserts"}
   end
 
   def scrap
@@ -27,10 +27,14 @@ class Scrapper
     self.get_page
     self.get_recipes
     self.make_recipes
+    self.get_ing_dir
+    sleep 5
     @site = self.websites[:main_dishes]
     self.get_page
     self.get_recipes
     self.make_recipes
+    self.get_ing_dir
+    sleep 5
     @site = self.websites[:desserts]
     self.get_page
     self.get_recipes
@@ -43,7 +47,7 @@ class Scrapper
   end
 
   def get_recipes
-    self.get_page.css("div.item-recipe__holder")
+    self.get_page.css("article.fixed-recipe-card")
   end
 
   def make_recipes
@@ -52,7 +56,7 @@ class Scrapper
       recipes.each do |recipe|
         r = Recipe.new
         r.course = course
-        r.title = recipe.css("h4.item-recipe__title")[0].text
+        r.title = recipe.css(".fixed-recipe-card__title-link")[1].text
         r.link = recipe.css("a")[0].attributes.values[0].value
       end
   end
@@ -61,12 +65,14 @@ class Scrapper
     Recipe.all.each do |r|
       site = r.link
       recipesite = Nokogiri::HTML(open(site))
-        recipesite.css("span.form-checkbox__title").each do |i|
-          r.ingredients << i.text
+        recipesite.css("span.recipe-ingred_txt.added").each do |i|
+          if r.ingredients.find {|r| r == i.text} == nil
+            r.ingredients << i.text
+          end
         end
-        recipesite.css("//div[@itemprop = 'recipeInstructions']").each do |d|
+        recipesite.css("span.recipe-directions__list--item").each do |d|
         if r.directions.find {|r| r == d.text} == nil
-          r.directions << d.text
+          r.directions << d.text.strip
         end
       end
     end
@@ -76,12 +82,7 @@ end
 
 
 
-# scrap = Scrapper.new
-# scrap.site = "E:/Nissan & Daniella/Documents/kosherdotcommain.html"
-# scrap.get_page
-# scrap.get_recipes
-# scrap.make_recipes
-# scrap.get_ing_dir
+# Scrapper.new.scrap
 
 #kosher.com
 #:title = doc.css("div.item-recipe__holder")[1].css("h4.item-recipe__title")[0].text

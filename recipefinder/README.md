@@ -1,8 +1,6 @@
 # Recipefinder
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/recipefinder`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to Recipefinder. This gem finds various recipes for the user to make and create. We are currently grabbing recipes from www.kosher.com. However, feel free to change to your favorite recipe websites and find the scraping elements accordingly. The user will be requested what course he would like to make and then will be give a serious of recipes to take a closer look at. After choosing a recipe, the user will get a list of ingredients required and
 
 ## Installation
 
@@ -32,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/recipefinder. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/NYHolzer/recipefinder. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

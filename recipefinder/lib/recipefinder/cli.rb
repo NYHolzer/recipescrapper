@@ -15,7 +15,6 @@ class Recipefinder::CLI
     until (user_input = gets.strip) == "exit"
       input_instructions(user_input)
     end
-    repeat
   end
 
   def welcome
@@ -35,13 +34,13 @@ class Recipefinder::CLI
     case user_input
     when "1"
       appetizer_recipes
-      choose_recipe(user_input)
+      choose_recipe
     when "2"
       main_recipes
-      choose_recipe(user_input)
+      choose_recipe
     when "3"
-      desserts_recipes
-      choose_recipe(user_input)
+      dessert_recipes
+      choose_recipe
     else
       puts "Error: that is not a valid entry. Please enter a number or 'exit' to close"
     end
@@ -52,10 +51,10 @@ class Recipefinder::CLI
     Recipe.all.each do |recipe|
       if recipe.course.name == Scrapper.new.websites[:appetizers].split(/[\/]/)[4]
         puts "#{counter}." + " #{recipe.title}"
+        puts ""
         counter += 1
       end
     end
-    binding.pry
     @num_of_choices = counter
   end
 
@@ -64,25 +63,26 @@ class Recipefinder::CLI
     Recipe.all.each do |recipe|
       if recipe.course.name == Scrapper.new.websites[:main_dishes].split(/[\/]/)[4]
         puts "#{counter}." + " #{recipe.title}"
+        puts ""
         counter += 1
       end
     end
     @num_of_choices = counter
   end
 
-  def desserts_recipes
+  def dessert_recipes
     counter = 1
     Recipe.all.each do |recipe|
-      binding.pry
       if recipe.course.name == Scrapper.new.websites[:desserts].split(/[\/]/)[4]
         puts "#{counter}." + " #{recipe.title}"
+        puts ""
         counter += 1
       end
     end
     @num_of_choices = counter
   end
 
-  def choose_recipe(user_input)
+  def choose_recipe
     puts "Choose the number of the recipe you'd like to cook:"
     user_input = gets.strip
     if user_input.to_i <= self.num_of_choices && user_input.to_i > 0
@@ -102,11 +102,13 @@ class Recipefinder::CLI
     r.directions.each_with_index do |dir, index|
       puts "#{index+1}." + dir
     end
+    puts "Choose '1' for Appetizers, '2' for Main Dishes, '3' for desserts or 'exit' to close the program."
   end
 
-  def repeat
-    puts "Would you like to make something else?"
-    puts "Type '1' for Appetizers, '2' for main dishes, '3' for desserts and 'exit' to close"
-    input_instructions(user_input)
-  end
+  # def repeat
+  #   puts "Would you like to make something else?"
+  #   puts "Type '1' for Appetizers, '2' for main dishes, '3' for desserts and 'exit' to close"
+  #   user_input = gets.strip
+  #   input_instructions(user_input)
+  # end
 end
